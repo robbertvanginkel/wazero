@@ -10,6 +10,7 @@ import (
 	"github.com/tetratelabs/wazero/internal/gojs/testdata/gc"
 	"github.com/tetratelabs/wazero/internal/gojs/testdata/goroutine"
 	"github.com/tetratelabs/wazero/internal/gojs/testdata/http"
+	"github.com/tetratelabs/wazero/internal/gojs/testdata/largeio"
 	"github.com/tetratelabs/wazero/internal/gojs/testdata/mem"
 	"github.com/tetratelabs/wazero/internal/gojs/testdata/stdio"
 	"github.com/tetratelabs/wazero/internal/gojs/testdata/syscall"
@@ -34,6 +35,8 @@ func main() {
 		goroutine.Main()
 	case "http":
 		http.Main()
+	case "largeio":
+		largeio.Main()
 	case "mem":
 		mem.Main()
 	case "stdio":

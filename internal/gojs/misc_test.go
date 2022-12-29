@@ -1,6 +1,8 @@
 package gojs_test
 
 import (
+	"bytes"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -49,4 +51,16 @@ func Test_gc(t *testing.T) {
 	require.EqualError(t, err, `module "" closed with exit_code(0)`)
 	require.Equal(t, "", stderr)
 	require.Equal(t, "before gc\nafter gc\n", stdout)
+}
+
+func Test_largeio(t *testing.T) {
+	t.Parallel()
+
+	largeStdin := make([]byte, 2*1024*1024) // 2 mb
+	stdout, stderr, err := compileAndRun(testCtx, "largeio", wazero.NewModuleConfig().
+		WithStdin(bytes.NewReader(largeStdin)))
+
+	require.Equal(t, "", stderr)
+	require.EqualError(t, err, `module "" closed with exit_code(0)`)
+	require.Equal(t, strconv.Itoa(len(largeStdin))+"\n", stdout)
 }
